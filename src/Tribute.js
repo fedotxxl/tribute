@@ -261,7 +261,19 @@ class Tribute {
                 if (this.menuSelected === index) {
                     li.className = this.current.collection.selectClass
                 }
-                li.innerHTML = this.current.collection.menuItemTemplate(item)
+
+                let itemContent = this.current.collection.menuItemTemplate(item);
+
+                if (this._isElement(itemContent)) {
+                    while (li.firstChild) {
+                        li.removeChild(li.firstChild);
+                    }
+
+                    li.appendChild(itemContent);
+                } else {
+                    li.innerHTML = itemContent;
+                }
+
                 ul.appendChild(li)
             })
         }
@@ -420,6 +432,15 @@ class Tribute {
                 el.tributeMenu.remove()
             }
         })
+    }
+
+
+    //https://stackoverflow.com/a/384380
+    _isElement(o){
+        return (
+            typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+                o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+        );
     }
 }
 

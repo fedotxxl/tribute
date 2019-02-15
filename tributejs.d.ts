@@ -23,7 +23,7 @@ export type TributeCollection<T extends {}> = {
   selectTemplate?: (item: TributeItem<T>) => string
 
   // template for displaying item in menu
-  menuItemTemplate?: (item: TributeItem<T>) => string
+  menuItemTemplate?: (item: TributeItem<T>) => string | Element
 
   // template for when no match is found (optional),
   // If no template is provided, menu is hidden.
