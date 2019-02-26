@@ -1,6 +1,6 @@
 {
   "name": "@fedotxxl/tributejs",
-  "version": "3.5.3-rc.1",
+  "version": "3.5.3-rc.5",
   "description": "tributejs with minor fixes",
   "main": "dist/tribute.js",
   "types": "tributejs.d.ts",

@@ -29,7 +29,7 @@ class TributeSearch {
 
         pattern = opts.caseSensitive && pattern || pattern.toLowerCase()
 
-        let patternCache = this.traverse(compareString, pattern, 0, 0, [])
+        let patternCache = (opts.filterContains) ? this._filterContains(compareString, pattern) : this.traverse(compareString, pattern, 0, 0, [])
         if (!patternCache) {
             return null
         }
@@ -37,6 +37,27 @@ class TributeSearch {
         return {
             rendered: this.render(string, patternCache.cache, pre, post),
             score: patternCache.score
+        }
+    }
+
+    _filterContains(string, pattern) {
+        let i = string.indexOf(pattern);
+
+        if (i == -1) {
+            return undefined;
+        } else {
+            let cache = [];
+            let j = 0;
+
+            while (j < pattern.length) {
+                cache.push(i + j);
+                j++
+            }
+
+            return {
+                score: -1 * i,
+                cache: cache
+            }
         }
     }
 
@@ -88,8 +109,7 @@ class TributeSearch {
             if (i > 0) {
                 if (patternCache[i - 1] + 1 === index) {
                     temp += temp + 1
-                }
-                else {
+                } else {
                     temp = 1
                 }
             }
@@ -139,11 +159,11 @@ class TributeSearch {
                 return prev
             }, [])
 
-        .sort((a, b) => {
-            let compare = b.score - a.score
-            if (compare) return compare
-            return a.index - b.index
-        })
+            .sort((a, b) => {
+                let compare = b.score - a.score
+                if (compare) return compare
+                return a.index - b.index
+            })
     }
 }
 

@@ -23,6 +23,7 @@ class Tribute {
         positionMenu = true,
         spaceSelectsMatch = false,
         searchOpts = {},
+        filterContains = false,
     }) {
 
         this.menuSelected = 0
@@ -35,6 +36,7 @@ class Tribute {
         this.positionMenu = positionMenu
         this.hasTrailingSpace = false;
         this.spaceSelectsMatch = spaceSelectsMatch;
+        this.filterContains = filterContains;
 
         if (values) {
             this.collection = [{
@@ -226,7 +228,8 @@ class Tribute {
                     } else {
                         throw new Error('Invalid lookup attribute, lookup must be string or function.')
                     }
-                }
+                },
+                filterContains: this.filterContains
             })
 
             this.current.filteredItems = items

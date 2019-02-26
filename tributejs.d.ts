@@ -53,6 +53,9 @@ export type TributeCollection<T extends {}> = {
 
   //specify whether the menu should be positioned
   positionMenu?: boolean
+
+  // match filter contains
+  filterContains?: boolean
 }
 
 export type TributeOptions<T> = TributeCollection<T> | {
